@@ -24,6 +24,22 @@ network, light/dark), with factual bullet points computed from the results next 
 | 05 | `05_volcano_NN_*` | Volcanos of the comparisons with most differential proteins (or the ones you choose), coloured by the top themes, with the most marked named proteins |
 | 06 | `06_spotlight` | One or two named proteins per programme, replicate by replicate (hollow dots = not detected, DPC estimate) |
 
+**Tables** — `insight_tables.xlsx` holds what the figures show, ready for supplementary tables,
+R or a multi-omics comparison (`insight_programmes.tsv`: the *Programmes* sheet as plain TSV).
+
+| Sheet | One row per | Content |
+|-------|-------------|---------|
+| `README` | item | Provenance (InSight version, source workbook, selection rule, thresholds, k) and column dictionary |
+| `Facts` | fact | Key figures and every bullet of the report, by section |
+| `Programmes` | protein | Programme, fit to the programme profile (Pearson r, silhouette), themes, comparisons where it is selected, peak log2FC, share of observed values (DPC: a profile carried by non-detections shows up in `min_observed_fraction`), log2 means and z-scores per condition |
+| `Programme_summary` | programme | Size, highest / lowest condition, mean fit, enriched themes (q), example proteins |
+| `Themes` | theme | Terms, sources, proteins, comparisons and programmes where it is enriched (T1 = best term) |
+| `Theme_terms` | term | Theme, source, FDR, proteins |
+| `Theme_x_contrast` | theme × comparison | Best-term FDR, direction (median z-score), number of terms (long format) |
+
+Sheets whose inputs are missing are left out (no programmes with fewer than 3 conditions or 20
+selected proteins, no themes without GO tables). `README` and `Facts` are always written.
+
 **Thresholds are those of Deimos.** The proteins are the ones Deimos selected: the volcano rule
 of the run (statistic `p.adj` or raw `p.value`, threshold, ratio: `p < thr & |log2FC| >=
 log2(ratio)`), read from the `_manifest` (structured keys of schema 1.2, else its `volcano_rule`

@@ -14,6 +14,7 @@ from .figures import (fig_landscape, fig_map, fig_programmes, fig_spotlight, fig
 from .io import load_run
 from .programmes import build_programmes
 from .report import write_report
+from .tables import write_tables
 from .themes import build_themes
 
 
@@ -131,6 +132,14 @@ def run_insight(deimos_out: str, out_dir: str | None = None, xlsx: str | None = 
             f"Proteins: {run.rule_text()} ({run.rule_source}: the Deimos selection) · "
             f"GO terms: q < {GO_Q_THR:g} · abundances: {run.abundance_kind or 'n/a'} · "
             f"protein names: {run.label_source}"]
+    tables = _safe("tables", write_tables, out_dir, run, design, prog, themes, sections, kpis,
+                   meta, k)
+    if tables:
+        written.append(tables)
+        meta.append(f"Tables: {os.path.basename(tables)} (same folder) — programmes, themes, "
+                    f"facts" + (" · programmes also in insight_programmes.tsv" if prog else ""))
     rep = write_report(out_dir, title or "InSight — biological reading", kpis, sections, meta)
     print(f"  [OK] InSight: {len(sections)} figures + report -> {rep}")
-    return {"report": rep, "files": written, "out_dir": out_dir}
+    if tables:
+        print(f"  [OK] InSight: tables -> {tables}")
+    return {"report": rep, "files": written, "out_dir": out_dir, "tables": tables}

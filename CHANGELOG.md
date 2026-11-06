@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.2.0 — 2026-11-06
+
+Tables next to the figures.
+- `insight_tables.xlsx`: `README` (provenance and column dictionary), `Facts` (key figures and
+  report bullets as text), `Programmes` (one row per protein: programme, Pearson r to the
+  programme profile, silhouette, themes, comparisons where selected, peak log2FC, share of
+  observed values per condition when DPC matrices exist, log2 means and z-scores per condition),
+  `Programme_summary`, `Themes`, `Theme_terms`, `Theme_x_contrast` (long format).
+- `insight_programmes.tsv`: the `Programmes` sheet as TSV, for R.
+- The report header names the tables file. Missing inputs drop the matching sheets only;
+  a failure of the export never stops the figures or the report.
+- Tests: `tests/test_tables.py` (sheets, consistency with programmes and themes, observed share
+  on DPC matrices, two-condition and minimal workbooks).
+
 ## 0.1.1 — 2026-11-06
 
 Thresholds aligned on Deimos.
