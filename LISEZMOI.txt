@@ -1,0 +1,26 @@
+Deimos + Pathfinder 1.2.0 + InSight 0.1.1 — 2026-11-06 (zip complet)
+====================================================================
+Remplace insight_2026-11-06.zip et seuils_deimos_2026-11-06.zip.
+
+1. InSight/  (0.1.1, dossier complet) -> a placer A COTE du dossier Deimos :
+       ...\deimos-proteomics-pipeline\
+       ...\InSight\                 <- ici
+   (ou insight_path dans le YAML, ou la variable INSIGHT_HOME)
+   Seul :        python insight.py proteomics_output
+   Via Deimos :  make_insight: true dans le YAML, ou python deimos.py --insight
+   Dependances : pip install -r InSight\requirements.txt (deja presentes avec Deimos,
+                 sauf eventuellement networkx et adjustText)
+
+2. deimos/  -> fichiers Deimos modifies le 06/11 (ajouts InSight + manifeste 1.2) :
+       insight_bridge.py (nouveau), pathfinder_bridge.py, deimos.py, config.py,
+       config_example.yaml, README.md, CHANGELOG.md, tests/ (4 fichiers)
+
+3. Pathfinder/  (1.2.0) -> fichiers modifies, a copier dans le clone Pathfinder
+   (base : GitHub main 6340d26 "Fix") : io_layer.py, axis_proteins.py, axis_meta_go.py,
+   axis_publications.py, pathfinder.py, summary.py, README.md, CHANGELOG.md,
+   tests/test_selection_rule.py (nouveau), tests/test_contract_deimos.py
+
+4. exemple_P5/insight_report.html -> rapport InSight du run P5 du 19/10 (navigateur)
+
+Seuils : proteines = celles de Deimos (regle volcano du _manifest), GO a q < 0.05.
+Aucun fichier FASTA dans ce zip.
